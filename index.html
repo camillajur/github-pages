@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Генератор Цепочек Реальностей</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    .event {
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    #chains-container {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Генератор Цепочек Реальностей</h1>
+
+  <div class="event">
+    <label for="initialText">Начальное событие:</label><br>
+    <textarea id="initialText" rows="4" cols="50"></textarea><br>
+    <label for="branch1">Исход 1:</label><br>
+    <textarea id="branch1" rows="4" cols="50"></textarea><br>
+    <label for="branch2">Исход 2:</label><br>
+    <textarea id="branch2" rows="4" cols="50"></textarea><br>
+    <button id="generateButton">Сгенерировать Цепочку</button>
+  </div>
+
+  <h2>Сгенерированные Цепочки:</h2>
+  <div id="chains-container"></div>
+
+  <script>
+    const generateButton = document.getElementById('generateButton');
+    const chainsContainer = document.getElementById('chains-container');
+
+    generateButton.addEventListener('click', () => {
+      const initialText = document.getElementById('initialText').value;
+      const branch1 = document.getElementById('branch1').value;
+      const branch2 = document.getElementById('branch2').value;
+
+      if (initialText && branch1 && branch2) {
+        createChain(initialText, branch1, branch2);
+        document.getElementById('initialText').value = '';
+        document.getElementById('branch1').value = '';
+        document.getElementById('branch2').value = '';
+      } else {
+        alert('Пожалуйста, заполните все поля!');
+      }
+    });
+
+    function createChain(initialText, branch1Text, branch2Text) {
+      const chainContainer = document.createElement('div');
+      chainContainer.classList.add('event'); // Используем класс "event" для цепочки
+
+      const initialTextDiv = document.createElement('p');
+      initialTextDiv.textContent = `Начало: ${initialText}`;
+      chainContainer.appendChild(initialTextDiv);
+
+      const branch1Div = document.createElement('p');
+      branch1Div.textContent = `Исход 1: ${branch1Text}`;
+      chainContainer.appendChild(branch1Div);
+
+      const branch2Div = document.createElement('p');
+      branch2Div.textContent = `Исход 2: ${branch2Text}`;
+      chainContainer.appendChild(branch2Div);
+
+      chainsContainer.prepend(chainContainer); // Добавляем в начало
+    }
+  </script>
+
+</body>
+</html>
